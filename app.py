@@ -24,9 +24,9 @@ def get_systems():
             aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
             region_name="us-east-1"
     )
-else:
-    # Fallback to local machine keys (~/.aws/credentials)
-    bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+    else:
+        # Fallback to local machine keys (~/.aws/credentials)
+        bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
 collection, bedrock = get_systems()
 
