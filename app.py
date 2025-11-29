@@ -18,11 +18,11 @@ def get_systems():
     
     # Setup AWS Bedrock
     if "AWS_ACCESS_KEY_ID" in st.secrets:
-    bedrock = boto3.client(
-        "bedrock-runtime",
-        aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
-        region_name="us-east-1"
+        bedrock = boto3.client(
+            "bedrock-runtime",
+            aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],
+            aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
+            region_name="us-east-1"
     )
 else:
     # Fallback to local machine keys (~/.aws/credentials)
