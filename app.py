@@ -1,3 +1,15 @@
+# --- SQLITE FIX FOR STREAMLIT CLOUD ---
+import sys
+try:
+    __import__('pysqlite3')
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except ImportError:
+    pass
+# --------------------------------------
+
+import streamlit as st
+import boto3
+# ... rest of your imports ...
 import streamlit as st
 import boto3
 import json
