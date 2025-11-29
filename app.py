@@ -28,7 +28,7 @@ def get_systems():
         # Fallback to local machine keys (~/.aws/credentials)
         bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
 
-collection, bedrock = get_systems()
+#collection, bedrock = get_systems()
 
 # --- 2. BACKEND FUNCTIONS ---
 def ingest_pdf(uploaded_file):
