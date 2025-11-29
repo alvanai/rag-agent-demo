@@ -1,0 +1,6 @@
+streamlit
+boto3
+chromadb
+pypdf
+watchdog
+pysqlite3-binary; sys_platform == 'linux'
