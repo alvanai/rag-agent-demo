@@ -9,9 +9,6 @@ except ImportError:
 
 import streamlit as st
 import boto3
-# ... rest of your imports ...
-import streamlit as st
-import boto3
 import json
 import chromadb
 import os
@@ -30,17 +27,21 @@ def get_systems():
     
     # Setup AWS Bedrock
     if "AWS_ACCESS_KEY_ID" in st.secrets:
+        # Cloud Mode
         bedrock = boto3.client(
             "bedrock-runtime",
             aws_access_key_id=st.secrets["AWS_ACCESS_KEY_ID"],
             aws_secret_access_key=st.secrets["AWS_SECRET_ACCESS_KEY"],
             region_name="us-east-1"
-    )
+        )
     else:
-        # Fallback to local machine keys (~/.aws/credentials)
+        # Local Mode
         bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+        
+    return collection, bedrock
 
-#collection, bedrock = get_systems()
+# --- CRITICAL STEP: ACTUALLY CALL THE FUNCTION ---
+collection, bedrock = get_systems()
 
 # --- 2. BACKEND FUNCTIONS ---
 def ingest_pdf(uploaded_file):
@@ -71,7 +72,7 @@ def ask_llm(question):
     # Search Memory
     results = collection.query(query_texts=[question], n_results=1)
     
-    if not results['documents'][0]:
+    if not results['documents'] or not results['documents'][0]:
         return "I don't have enough info in the documents to answer that."
         
     context = results['documents'][0][0]
